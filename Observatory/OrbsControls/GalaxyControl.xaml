@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Observatory.OrbsControls.GalaxyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Observatory.ObjectModel;assembly=Observatory.ObjectModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="285" d:DesignWidth="240">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary Source="ElementsRD.xaml"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Название"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Количество звезд"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Количество планет"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Name="GalaxyNameTB"
+                 Text="{Binding Name, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding StarsCount, Mode=OneWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding PlanetsCount, Mode=OneWay}"/>
+        <WrapPanel Name="ButtonsPanel" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+            <Button Content="Добавить" Click="OnAddGalaxy"/>
+            <Button Content="Изменить" Click="OnChangeGalaxy"/>
+            <Button Content="Удалить" Click="OnDeleteGalaxy"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

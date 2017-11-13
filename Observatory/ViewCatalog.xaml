@@ -1,0 +1,297 @@
+﻿<Page x:Name="ViewCatalogPage" x:Class="Observatory.ViewCatalog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Observatory"
+      xmlns:ucontr="clr-namespace:Observatory.OrbsControls"
+      xmlns:objects="clr-namespace:Observatory.ObjectModel;assembly=Observatory.ObjectModel"
+      mc:Ignorable="d" 
+      d:DesignHeight="560"
+      Title="ViewCatalog" Width="1055">
+    <Page.Background>
+        <SolidColorBrush Color="LightBlue"/>
+    </Page.Background>
+    <Page.Resources>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="TabItem">
+                            <Border x:Name="TabItemBorder">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" 
+                                                         EndPoint="0,1">
+                                        <GradientStop 
+                        Color="{StaticResource headerLightGradientBackgroundColor}"
+                        Offset="0.0"/>
+                                        <GradientStop
+                        Color="{StaticResource headerDarkGradientBackgroundColor}"
+                        Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <ContentControl x:Name="TabItemHeader"
+                                                Content="{TemplateBinding Header}"
+                                                TextBlock.Foreground=
+                                                "{StaticResource textForeground}"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center"
+                                                Margin="5,2,5,2"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="TabItemBorder" 
+                                        Property="Background"
+                                        Value="{StaticResource headerBackgroundBrush}"/>
+                                <Setter TargetName="TabItemHeader" 
+                                        Property="TextBlock.Foreground"
+                                        Value="{StaticResource headerForegroundBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="VerticalGridSplitter" TargetType="{x:Type GridSplitter}">
+            <Setter Property="Width" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+        </Style>
+        <HierarchicalDataTemplate x:Key="SecondaryPlanetTemplate" 
+                DataType="{x:Type objects:Planet}">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="PlanetTemplate" 
+                DataType="{x:Type objects:Planet}" 
+                              ItemsSource="{Binding SecondaryPlanets.Values}" 
+                              ItemTemplate="{StaticResource SecondaryPlanetTemplate}">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="StarTemplate" 
+                DataType="{x:Type objects:Star}"
+                ItemsSource="{Binding Planets.Values}"
+                              ItemTemplate="{StaticResource PlanetTemplate}">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="GalaxyTemplate" 
+                DataType="{x:Type objects:Galaxy}"
+                ItemsSource="{Binding Stars.Values}"
+                              ItemTemplate="{StaticResource StarTemplate}">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="UniverseTemplate" 
+                DataType="{x:Type objects:GalaxiesCollection}"
+                ItemsSource="{Binding Galaxies.Values}"
+                              ItemTemplate="{StaticResource GalaxyTemplate}">
+            <TextBlock Text="{Binding Path=Name}"/>
+        </HierarchicalDataTemplate>
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                        <Grid Background="{StaticResource headerBackgroundBrush}">
+                            <DockPanel HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" Width="70">
+                                <TextBlock Text="{TemplateBinding Content}"
+                                   Foreground="{StaticResource headerForegroundBrush}"
+                                   TextWrapping="Wrap"/>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <GridView x:Key="GalaxyGridView">
+            <GridViewColumn Width="100">
+                <GridViewColumnHeader Content="Название"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Name"/>
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" 
+                                   Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=StarsCount}">
+                <GridViewColumnHeader Content="Кол-во звезд"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="StarsCount"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=PlanetsCount}">
+                <GridViewColumnHeader Content="Кол-во планет"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="PlanetsCount"/>
+            </GridViewColumn>
+        </GridView>
+        <GridView x:Key="StarGridView">
+            <GridViewColumn Width="100">
+                <GridViewColumnHeader Content="Название"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Name"/>
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" 
+                                   Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=SpectralType}">
+                <GridViewColumnHeader Content="Спектраль-ный класс"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="SpectralType"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Magnitude}">
+                <GridViewColumnHeader Content="Звездная величина"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Magnitude"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Rectascension}">
+                <GridViewColumnHeader Content="Прямое восхожде-ние"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Rectascension"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=DeclinationAngle}">
+                <GridViewColumnHeader Content="Склонение"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="DeclinationAngle"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Temperature}">
+                <GridViewColumnHeader Content="Температу-ра"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Temperature"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Distance}">
+                <GridViewColumnHeader Content="Расстояние"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Distance"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=PlanetsCount}">
+                <GridViewColumnHeader Content="Кол-во планет"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="PlanetsCount"/>
+            </GridViewColumn>
+        </GridView>
+        <GridView x:Key="PlanetGridView">
+            <GridViewColumn Width="100">
+                <GridViewColumnHeader Content="Название"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Name"/>
+                <GridViewColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" 
+                                   Text="{Binding Path=Name}"/>
+                    </DataTemplate>
+                </GridViewColumn.CellTemplate>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Mass}">
+                <GridViewColumnHeader Content="Масса"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Mass"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Diameter}">
+                <GridViewColumnHeader Content="Диаметр"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="Diameter"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=MeanDistance}">
+                <GridViewColumnHeader Content="Среднее расстояние"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="MeanDistance"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=SiderealPeriod}">
+                <GridViewColumnHeader Content="Сидераль-ный период"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="SiderealPeriod"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=SynodicPeriod}">
+                <GridViewColumnHeader Content="Синодиче-ский период"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="SynodicPeriod"/>
+            </GridViewColumn>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=SecondaryPlanetsCount}">
+                <GridViewColumnHeader Content="Кол-во спутников"
+                                      Command="{Binding SortCommand}"
+                                      CommandParameter="SecondaryPlanetsCount"/>
+            </GridViewColumn>
+        </GridView>
+    </Page.Resources>
+    <Grid Margin="20" Height="520">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="530" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_Файл">
+                    <MenuItem Header="_Сохранить" Click="OnSaveToFile"/>
+                    <Separator/>
+                    <MenuItem Header="_Выйти" Click="OnQuit"/>
+                </MenuItem>
+                <MenuItem Header="_Галактики">
+                    <MenuItem Header="_Добавить" Click="OnAddGalaxy"/>
+                    <MenuItem Header="_Изменить" Click="OnChangeGalaxy"/>
+                    <MenuItem Header="_Удалить" Click="OnDeleteGalaxy"/>
+                </MenuItem>
+                <MenuItem Header="_Звезды">
+                    <MenuItem Header="_Добавить" Click="OnAddStar"/>
+                    <MenuItem Header="_Изменить" Click="OnChangeStar"/>
+                    <MenuItem Header="_Удалить" Click="OnDeleteStar"/>
+                </MenuItem>
+                <MenuItem Header="_Планеты">
+                    <MenuItem Header="_Добавить" Click="OnAddPlanet"/>
+                    <MenuItem Header="_Изменить" Click="OnChangePlanet"/>
+                    <MenuItem Header="_Удалить" Click="OnDeletePlanet"/>
+                </MenuItem>
+                <MenuItem Header="_Спутники">
+                    <MenuItem Header="_Добавить" Click="OnAddSecondaryPlanet"/>
+                    <MenuItem Header="_Изменить" Click="OnChangeSecondaryPlanet"/>
+                    <MenuItem Header="_Удалить" Click="OnDeleteSecondaryPlanet"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <TabControl Grid.Column="0" Grid.Row="1" SelectedIndex="0" Width="250" 
+                    Height="420">
+            <TabItem Header="Галактики" Height="23" VerticalAlignment="Top">
+                <ucontr:GalaxyControl x:Name="AGalaxyControl" 
+                                      AddGalaxy="OnAddGalaxy"
+                                      ChangeGalaxy="OnChangeGalaxy"
+                                      DeleteGalaxy="OnDeleteGalaxy"/>
+            </TabItem>
+            <TabItem Header="Звезды">
+                <ucontr:StarControl x:Name="AStarControl"
+                                    AddStar="OnAddStar"
+                                    ChangeStar="OnChangeStar"
+                                    DeleteStar="OnDeleteStar"/>
+            </TabItem>
+            <TabItem Header="Планеты">
+                <ucontr:PlanetControl x:Name="APlanetControl"
+                                      AddPlanet="OnAddPlanet"
+                                      ChangePlanet="OnChangePlanet"
+                                      DeletePlanet="OnDeletePlanet"                                     
+                                      AddSecondaryPlanet="OnAddSecondaryPlanet"
+                                      ChangeSecondaryPlanet="OnChangeSecondaryPlanet"
+                                      DeleteSecondaryPlanet="OnDeleteSecondaryPlanet"
+                                      ChangePlanetType="OnChangePlanetType"/>
+            </TabItem>
+        </TabControl>
+        <GridSplitter Grid.Column="1" Grid.Row="1" 
+                      Style="{StaticResource VerticalGridSplitter}"/>
+        <TreeView Grid.Column="2" Grid.Row="1" x:Name="CatalogTreeView" 
+                  ItemsSource="{Binding Values}" ItemTemplate="{StaticResource UniverseTemplate}"
+                  SelectedItemChanged="CatalogTreeView_SelectedItemChanged" />
+        <GridSplitter Grid.Column="3" Grid.Row="1" 
+                      Style="{StaticResource VerticalGridSplitter}"/>
+        <ListView x:Name="CatalogListView" Grid.Column="4" Grid.Row="1"
+                      ItemsSource="{Binding FirstCollectionView}"/>
+       
+    </Grid>
+</Page>

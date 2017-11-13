@@ -1,0 +1,60 @@
+﻿<Page x:Class="Observatory.AuthorizationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Observatory"
+      mc:Ignorable="d" 
+      d:DesignHeight="560" d:DesignWidth="1055"
+      Title="RegisterPage">
+    
+    <Page.Background>
+        <ImageBrush ImageSource="Beyond-the-Rim.jpg"/>
+    </Page.Background>
+    <Grid Width="1055" Height="495" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="230"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="345" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Background="Transparent" 
+               Foreground="White" Content="OBSERVATORY" FontSize="100" 
+               Margin="50,0,0,0">
+        </Label>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="0,20,30,0">
+            <Grid.Resources>
+                <Style x:Key="controlStyle">
+                    <Setter Property="Control.Width" Value="150" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Foreground="White">Логин</Label>
+            <Label Grid.Column="0" Grid.Row="1" Foreground="White" Margin="0,10,0,10">
+                Пароль
+            </Label>
+            <TextBox x:Name="LoginTB" Grid.Column="1" Grid.Row="0" 
+                 Style="{StaticResource controlStyle}" Height="25"/>
+            <PasswordBox x:Name="PasswordB" Grid.Column="1" Grid.Row="1" 
+                         Margin="0,10,0,10" Height="25"
+                     Style="{StaticResource controlStyle}" />
+            <Button Grid.Column="1" Grid.Row="2" Width="75" 
+                Content="Войти" HorizontalAlignment="Right" Height="22" 
+                Margin="0,0,0.2,0.2" VerticalAlignment="Bottom" Click="Button_Click" />
+        </Grid>
+        <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" 
+               HorizontalAlignment="Right" Margin="0,0,30,20" FontSize="24"
+               Background="Transparent" Content="by K. Sinitsa" />
+    </Grid>
+    
+</Page>

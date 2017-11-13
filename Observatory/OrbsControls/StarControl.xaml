@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Observatory.OrbsControls.StarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Observatory.OrbsControls"
+             xmlns:providers="clr-namespace:Observatory.Providers"
+             mc:Ignorable="d" 
+            d:DesignHeight="285" d:DesignWidth="240">
+
+    <UserControl.Resources>
+        <ObjectDataProvider ObjectType="{x:Type providers:SpectralTypesProvider}"
+                            MethodName="GetSpectralTypes" x:Key="SpectralTypesProvider">
+        </ObjectDataProvider>
+    </UserControl.Resources>
+        <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="ElementsRD.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="Название"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Спектральный класс"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="Звездная величина"/>
+        <Label Grid.Column="0" Grid.Row="3" Content="Прямое восхождение"/>
+        <Label Grid.Column="0" Grid.Row="4" Content="Склонение"/>
+        <Label Grid.Column="0" Grid.Row="5" Content="Температура"/>
+        <Label Grid.Column="0" Grid.Row="6" Content="Расстояние"/>
+        <Label Grid.Column="0" Grid.Row="7" Content="Количество планет"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Name="StarNameTB"
+                 Text="{Binding Name, Mode=TwoWay}"/>
+        <ComboBox Grid.Column="1" Grid.Row="1" Name="SpectralTypeCB"
+                 ItemsSource="{Binding Source=
+            {StaticResource SpectralTypesProvider}, Mode=OneWay}"
+                  Text="{Binding Type}"
+                  SelectedValue="{Binding Type, UpdateSourceTrigger=LostFocus, 
+            Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="MagnitudeTB" 
+                 Text="{Binding Magnitude, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Name="RectascentionTB" 
+                 Text="{Binding Rectascension, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Name="DeclinationAngelTB" 
+                 Text="{Binding DeclinationAngle, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="5" Name="TemperatureTB" 
+                 Text="{Binding Temperature, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="6" Name="DistanceTB" 
+                 Text="{Binding Distance, Mode=TwoWay}"/>
+        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding PlanetsCount, Mode=OneWay}"/>
+        <WrapPanel Name="ButtonsPanel" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2">
+            <Button Content="Добавить" Click="OnAddStar"/>
+            <Button Content="Изменить" Click="OnChangeStar"/>
+            <Button Content="Удалить" Click="OnDeleteStar"/>
+        </WrapPanel>
+    </Grid> 
+</UserControl>

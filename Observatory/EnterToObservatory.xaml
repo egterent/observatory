@@ -1,0 +1,42 @@
+﻿<Page x:Class="Observatory.EnterToObservatory"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Observatory"
+      mc:Ignorable="d" 
+      d:DesignHeight="560" d:DesignWidth="1055"
+      Title="EnterToObservatory">
+
+    <Page.Background>
+        <ImageBrush ImageSource="Beyond-the-Rim.jpg"/>
+    </Page.Background>
+    <Grid Width="1055" Height="495" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="180"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="345" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Background="Transparent" 
+               Foreground="White" Content="OBSERVATORY" FontSize="100" Margin="50,0,0,0">
+        </Label>
+        <WrapPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" 
+                   Margin="0,20,30,0">
+            <Border Height="35" Background="{StaticResource headerBackgroundBrush}">
+                <Label VerticalAlignment="Center" Width="160" 
+                       Foreground="{StaticResource headerForegroundBrush}" 
+                       Content="Выберите вид доступа"/>
+            </Border>
+            <ListBox Name="loadingTypesListBox" Width="160">
+                <ListBoxItem>Просмотр каталога</ListBoxItem>
+                <ListBoxItem>Редактирование каталога</ListBoxItem>
+            </ListBox>
+            <Button Content="Войти"  Margin="0,10,0,0"
+                Width="75" Height="25" HorizontalAlignment="Right" 
+                Click="Button_Click" />
+        </WrapPanel>
+    </Grid>
+</Page>

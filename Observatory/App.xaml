@@ -1,0 +1,13 @@
+﻿<Application x:Class="Observatory.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Observatory"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Color x:Key="headerLightGradientBackgroundColor">LightGray</Color>
+        <Color x:Key="headerDarkGradientBackgroundColor">Gray</Color>
+        <SolidColorBrush Color="DarkBlue" x:Key="headerBackgroundBrush"/>
+        <SolidColorBrush Color="LightYellow" x:Key="headerForegroundBrush"/>
+        <SolidColorBrush Color="Black" x:Key="textForeground"/>
+    </Application.Resources>
+</Application>
