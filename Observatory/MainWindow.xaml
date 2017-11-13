@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Observatory"
         mc:Ignorable="d"
-        Title="Observatory" Height="560" Width="1055" 
+        Title="Observatory" Height="520" Width="1000" 
                   WindowStartupLocation="CenterScreen"
                   Source="EnterToObservatory.xaml">
 

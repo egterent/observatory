@@ -7,8 +7,8 @@
       xmlns:ucontr="clr-namespace:Observatory.OrbsControls"
       xmlns:objects="clr-namespace:Observatory.ObjectModel;assembly=Observatory.ObjectModel"
       mc:Ignorable="d" 
-      d:DesignHeight="560"
-      Title="ViewCatalog" Width="1055">
+      d:DesignHeight="520"
+      Title="ViewCatalog" Width="1000">
     <Page.Background>
         <SolidColorBrush Color="LightBlue"/>
     </Page.Background>
@@ -217,7 +217,7 @@
             </GridViewColumn>
         </GridView>
     </Page.Resources>
-    <Grid Margin="20" Height="520">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto" />

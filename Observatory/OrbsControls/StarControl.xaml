@@ -49,8 +49,8 @@
         <ComboBox Grid.Column="1" Grid.Row="1" Name="SpectralTypeCB"
                  ItemsSource="{Binding Source=
             {StaticResource SpectralTypesProvider}, Mode=OneWay}"
-                  Text="{Binding Type}"
-                  SelectedValue="{Binding Type, UpdateSourceTrigger=LostFocus, 
+                  Text="{Binding SpectralType}"
+                  SelectedValue="{Binding SpectralType, UpdateSourceTrigger=LostFocus, 
             Mode=TwoWay}"/>
         <TextBox Grid.Column="1" Grid.Row="2" Name="MagnitudeTB" 
                  Text="{Binding Magnitude, Mode=TwoWay}"/>

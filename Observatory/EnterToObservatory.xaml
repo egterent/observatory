@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Observatory"
       mc:Ignorable="d" 
-      d:DesignHeight="560" d:DesignWidth="1055"
+      d:DesignHeight="520" d:DesignWidth="1000"
       Title="EnterToObservatory">
 
     <Page.Background>
@@ -13,7 +13,7 @@
     </Page.Background>
     <Grid Width="1055" Height="495" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="820"/>
             <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -28,7 +28,7 @@
             <Border Height="35" Background="{StaticResource headerBackgroundBrush}">
                 <Label VerticalAlignment="Center" Width="160" 
                        Foreground="{StaticResource headerForegroundBrush}" 
-                       Content="Выберите вид доступа"/>
+                       Content="Выберите вид доступа" Margin="0,0,0,9.2"/>
             </Border>
             <ListBox Name="loadingTypesListBox" Width="160">
                 <ListBoxItem>Просмотр каталога</ListBoxItem>
